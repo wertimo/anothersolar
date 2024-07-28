@@ -1,162 +1,41 @@
-:root {
-    --primary-color: #0099ff;
-    --secondary-color: #ffffff;
-    --text-color: #333333;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('nav a');
+    const joinWaitlistButton = document.getElementById('joinWaitlistButton');
+    const joinWaitlistHero = document.getElementById('joinWaitlistHero');
+    const formModal = document.getElementById('formModal');
+    const closeModal = document.getElementById('closeModal');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            if (link.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: var(--secondary-color);
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-}
-
-nav ul li {
-    margin-left: 1rem;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: var(--text-color);
-}
-
-.btn {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-section {
-    display: flex;
-    align-items: center;
-    margin-bottom: 4rem;
-}
-
-.image-placeholder {
-    width: 50%;
-    height: 300px;
-    background-color: var(--primary-color);
-    border-radius: 10px;
-}
-
-.content {
-    width: 50%;
-    padding: 2rem;
-}
-
-h1, h2 {
-    margin-bottom: 1rem;
-}
-
-footer {
-    background-color: #333;
-    color: var(--secondary-color);
-    padding: 1rem;
-    text-align: center;
-}
-
-.social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.icon {
-    font-size: 0;
-    width: 24px;
-    height: 24px;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.instagram { background-image: url('instagram-icon.png'); }
-.discord { background-image: url('discord-icon.png'); }
-.tiktok { background-image: url('tiktok-icon.png'); }
-.youtube { background-image: url('youtube-icon.png'); }
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background-color: #fefefe;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-    position: relative;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
+    function openModal() {
+        formModal.style.display = 'flex';
+        console.log('Join Waitlist button clicked, opening modal.');
     }
 
-    nav ul {
-        margin-top: 1rem;
+    joinWaitlistButton.onclick = openModal;
+    joinWaitlistHero.onclick = openModal;
+
+    closeModal.onclick = function() {
+        formModal.style.display = 'none';
+        console.log('Close button clicked, closing modal.');
     }
 
-    section {
-        flex-direction: column;
+    window.onclick = function(event) {
+        if (event.target === formModal) {
+            formModal.style.display = 'none';
+            console.log('Clicked outside modal, closing modal.');
+        }
     }
-
-    .image-placeholder, .content {
-        width: 100%;
-    }
-}
+});
