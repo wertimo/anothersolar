@@ -19,23 +19,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    function openModal() {
+    function openModal(e) {
+        e.preventDefault();
         formModal.style.display = 'flex';
         console.log('Join Waitlist button clicked, opening modal.');
     }
 
-    joinWaitlistButton.onclick = openModal;
-    joinWaitlistHero.onclick = openModal;
-
-    closeModal.onclick = function() {
-        formModal.style.display = 'none';
-        console.log('Close button clicked, closing modal.');
+    // Make sure these elements exist before adding event listeners
+    if (joinWaitlistButton) {
+        joinWaitlistButton.addEventListener('click', openModal);
     }
 
-    window.onclick = function(event) {
+    if (joinWaitlistHero) {
+        joinWaitlistHero.addEventListener('click', openModal);
+    }
+
+    if (closeModal) {
+        closeModal.addEventListener('click', function() {
+            formModal.style.display = 'none';
+            console.log('Close button clicked, closing modal.');
+        });
+    }
+
+    window.addEventListener('click', function(event) {
         if (event.target === formModal) {
             formModal.style.display = 'none';
             console.log('Clicked outside modal, closing modal.');
         }
-    }
+    });
+
+    console.log('Event listeners attached');
 });
